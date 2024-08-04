@@ -10,10 +10,8 @@ div {
     color: lime;
 }
 
-.calculator-body {
-    /* width: 400px;
-    height: 520px; */
-    width: 75%;
+#calculatorBody {
+    width: 69%;
     height: 60%;
     background-color: black;
     padding: 12px;
@@ -21,7 +19,7 @@ div {
     flex-direction: column;
 }
 
-.calculator-screen {
+#calculatorScreen {
     display: flex;
     flex-grow: 2;
     background-color: aliceblue;
@@ -30,17 +28,15 @@ div {
     margin-bottom: 10px;
 }
 
-.calculator-button-container {
+#calculatorButtonContainer {
     display: flex;
     flex-grow: 5;
     background-color: red;
-    /* justify-content: center; */
-    /* align-items: center; */
     flex-wrap: wrap;
 
 }
 
-.calculator-button-container>*{
+#calculatorButtonContainer>*{
     font-size: 32px;
     border-color: purple;
     border-width: 4px;
@@ -52,17 +48,3 @@ div {
     justify-content: center;
     align-items: center;
 }
-
-#zero {
-    flex: 45%;
-}
-
-/* same as above with container>* */
-/* .calculator-button {
-    font-size: 26px;
-    padding: 10px;
-    border-color: purple;
-    border-width: 4px;
-    border-style: solid;
-    flex: 1;
-} */
