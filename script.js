@@ -4,13 +4,13 @@
 // let b = 5;
 // let operator = '';
 
-const calculatorValues = {
+const calcVals = {
     a: null,
     b: null,
-    operator: null,
-    previousClass: null,
-    previousValue: null,
-    calculation: null
+    op: null,
+    prevType: null, //formerly previousClass
+    prevVal: null,
+    ans: null,
 }
 
 
@@ -21,8 +21,8 @@ const divideNums = (a,b) => a / b;
 const percentNums = (a,b) => b / (100 / a);
 
 
-function operate(a,b,operator) {
-    switch (operator) {
+function operate(a,b,op) {
+    switch(op) {
         case("+"):
             return addNums(a,b);
         case("-"):
@@ -52,9 +52,9 @@ calculatorButtonContainer.addEventListener('click', (item) => {
         if (Boolean(itemClass) === true) {
             switch(itemClass) {
                 case("number"):
-                    return useNumber("number", itemText);
+                    return useNumber(itemText);
                 case("operator"):
-                    return useOperator("operator", itemText);
+                    return useOperator(itemText);
                 default:
                     break;
                     // in case I accidentally add a style class it will go to id switch case
@@ -63,49 +63,87 @@ calculatorButtonContainer.addEventListener('click', (item) => {
         else {
             switch(itemId) {
                 case("clear"):
-                    return useClear("clear", itemText);
+                    return useClear(itemText);
                 case("delete"):
-                    return useDelete("delete", itemText);
+                    return useDelete(itemText);
                 case("decimal"):
-                    return useDecimal("decimal", itemText);
+                    return useDecimal(itemText);
                 case("posNeg"):
-                    return usePosNeg("posNeg", itemText);
+                    return usePosNeg(itemText);
                 case("equals"):
-                    return useEquals("equals", itemText);
+                    return useEquals(itemText);
             }
         }
     }
 });
 
+const calculatorScreen = document.getElementById("calculatorScreen");
+// let screenVal = calculatorScreen.textContent;
 
+console.table(calcVals);
 
-function useNumber(tag, val) {
+function useNumber(val) {
+    
+    switch(calcVals.prevType) {
+        case(null):
+            console.log("null useNum ran");
+            calcVals.a = val;
+            calcVals.prevType = "A";
+            calcVals.prevVal = calcVals.a;
+            calculatorScreen.textContent = calcVals.a;
+            console.table(calcVals);
+            break;
+        case("A"):
+            console.log("number useNum ran");
+            calcVals.a += val;
+            calcVals.prevType = "A"; // make OP to test.  normally A
+            calcVals.prevVal = calcVals.a;
+            calculatorScreen.textContent = calcVals.a;
+            console.table(calcVals);
+            break;
+        case("OP"):
+            console.log("number useNum ran");
+            calcVals.b = val;
+            calcVals.prevType = "B";
+            calcVals.prevVal = calcVals.b;
+            calculatorScreen.textContent = calcVals.b;
+            console.table(calcVals);
+            break;
+        case("B"):
+            console.log("number useNum ran");
+            calcVals.b += val;
+            calcVals.prevType = "B";
+            calcVals.prevVal = calcVals.b;
+            calculatorScreen.textContent = calcVals.b;
+            console.table(calcVals);
+            break;
+    }
 
 }
 
-function useOperator(tag, val) {
+function useOperator(val) {
     
 }
 
 
 
-function useClear(tag, val) {
+function useClear(val) {
 
 }
 
-function useDelete(tag, val) {
+function useDelete(val) {
 
 }
 
-function useDecimal(tag, val) {
+function useDecimal(val) {
     
 }
 
-function usePosNeg(tag, val) {
+function usePosNeg(val) {
     
 }
 
-function useEquals(tag, val) {
+function useEquals(val) {
     // dont write this yet
 }
 
