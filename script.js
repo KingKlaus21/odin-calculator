@@ -40,33 +40,38 @@ const calculatorButtonContainer = document.getElementById("calculatorButtonConta
 
 calculatorButtonContainer.addEventListener('click', (item) => {
     if (item.target !== calculatorButtonContainer) {
-        console.log('Clicked:', item.target.textContent);
-        console.log(item.target.className);
-        console.log(Boolean(item.target.className));
 
-        if (Boolean(item.target.className) === true) {
-            switch(item.target.className) {
+        // console.log('Clicked:', item.target.textContent);
+        // console.log(item.target.className);
+        // console.log(Boolean(item.target.className));
+
+        const itemClass = item.target.className;
+        const itemId = item.target.id;
+        const itemText = item.target.textContent;
+
+        if (Boolean(itemClass) === true) {
+            switch(itemClass) {
                 case("number"):
-                    return handleValue("number", item.target.textContent);
+                    return useNumber("number", itemText);
                 case("operator"):
-                    return handleValue("operator", item.target.textContent);
+                    return useOperator("operator", itemText);
                 default:
                     break;
                     // in case I accidentally add a style class it will go to id switch case
             }
         }
         else {
-            switch(item.target.id) {
+            switch(itemId) {
                 case("clear"):
-                    return handleValue("clear", item.target.textContent);
+                    return useClear("clear", itemText);
                 case("delete"):
-                    return handleValue("delete", item.target.textContent);
+                    return useDelete("delete", itemText);
                 case("decimal"):
-                    return handleValue("decimal", item.target.textContent);
+                    return useDecimal("decimal", itemText);
                 case("posNeg"):
-                    return handleValue("posNeg", item.target.textContent);
+                    return usePosNeg("posNeg", itemText);
                 case("equals"):
-                    return handleValue("equals", item.target.textContent);
+                    return useEquals("equals", itemText);
             }
         }
     }
@@ -74,10 +79,35 @@ calculatorButtonContainer.addEventListener('click', (item) => {
 
 
 
-function handleValue(tag, val) {
-    console.log(`The tag is ${tag} and the val is ${val}`);
+function useNumber(tag, val) {
+
 }
 
+function useOperator(tag, val) {
+    
+}
+
+
+
+function useClear(tag, val) {
+
+}
+
+function useDelete(tag, val) {
+
+}
+
+function useDecimal(tag, val) {
+    
+}
+
+function usePosNeg(tag, val) {
+    
+}
+
+function useEquals(tag, val) {
+    // dont write this yet
+}
 
 
 
