@@ -9,7 +9,7 @@ const calcVals = {
     b: null,
     op: null,
     prevType: null, //formerly previousClass
-    prevVal: null,
+    // prevVal: null,
     ans: null,
 }
 
@@ -88,7 +88,7 @@ function useNumber(val) {
             console.log("null useNum ran");
             calcVals.a = val;
             calcVals.prevType = "A";
-            calcVals.prevVal = calcVals.a;
+            // calcVals.prevVal = calcVals.a;
             calculatorScreen.textContent = calcVals.a;
             console.table(calcVals);
             break;
@@ -96,7 +96,7 @@ function useNumber(val) {
             console.log("A useNum ran");
             calcVals.a += val;
             calcVals.prevType = "A"; // make OP to test.  normally A
-            calcVals.prevVal = calcVals.a;
+            // calcVals.prevVal = calcVals.a;
             calculatorScreen.textContent = calcVals.a;
             console.table(calcVals);
             break;
@@ -104,7 +104,7 @@ function useNumber(val) {
             console.log("OP useNum ran");
             calcVals.b = val;
             calcVals.prevType = "B";
-            calcVals.prevVal = calcVals.b;
+            // calcVals.prevVal = calcVals.b;
             calculatorScreen.textContent = calcVals.b;
             console.table(calcVals);
             break;
@@ -112,7 +112,7 @@ function useNumber(val) {
             console.log("B useNum ran");
             calcVals.b += val;
             calcVals.prevType = "B";
-            calcVals.prevVal = calcVals.b;
+            // calcVals.prevVal = calcVals.b;
             calculatorScreen.textContent = calcVals.b;
             console.table(calcVals);
             break;
@@ -126,14 +126,14 @@ function useOperator(val) {
             calcVals.a = 0;
             calcVals.op = val;
             calcVals.prevType = "OP";
-            calcVals.prevVal = calcVals.op;
+            // calcVals.prevVal = calcVals.op;
             calculatorScreen.textContent = calcVals.op;
             console.table(calcVals);
         default:
             console.log("default useOperator ran");
             calcVals.op = val;
             calcVals.prevType = "OP";
-            calcVals.prevVal = calcVals.op;
+            // calcVals.prevVal = calcVals.op;
             calculatorScreen.textContent = calcVals.op;
             console.table(calcVals);
     }
@@ -151,20 +151,79 @@ function useClear() {
     console.table(calcVals);
 }
 
-function useDelete(val) {
+function useDelete() {
+    switch(calcVals.prevType){
+        // case(null):
+        //     return;
+        case("A"):
+            if (calcVals['a'].length >= 2) {
+                console.log(calcVals['a'].length);
+                calcVals['a'] = calcVals['a'].slice(0, calcVals['a'].length - 1);
+                calculatorScreen.textContent = calcVals['a'];
+                console.table(calcVals);
+            }
+            else {
+                console.log("else ran");
+                calcVals.a = 0;
+                calcVals.prevType = null; // fixes bug?
+                calculatorScreen.textContent = 0;
+                console.table(calcVals);
 
+                // setting to zero causes bug where inputting
+                // new numbers keeps the leading 0
+            }
+            break;
+        case("B"):
+            if (calcVals['b'].length >= 2) {
+                calcVals['b'] = calcVals['b'].slice(0, calcVals['b'].length - 1);
+                calculatorScreen.textContent = calcVals['b'];
+                console.table(calcVals);
+            }
+            else {
+                calcVals.b = 0;
+                calcVals.prevType = 'OP'; // fixes bug?
+                calculatorScreen.textContent = 0;
+                console.table(calcVals);
+                // setting to zero causes bug where inputting
+                // new numbers keeps the leading 0
+            }
+            break;
+
+        // case("OP"):
+        //     calcVals['op'].slice(0, 1);
+        //     // calcVals.prevType = 'OP';
+        //     calculatorScreen.textContent = "hello"; //"\u00A0";
+
+    }
 }
 
 function useDecimal(val) {
-    
+    // place decimal after checking rest of number for other decimals
+    switch(calcVals.prevType) {
+        
+        case("A"):
+            if (!calcVals['a'].includes(".")) {
+                calcVals['a'] += ".";
+                calculatorScreen.textContent += ".";
+            }
+            break;
+        case("B"):
+            if (!calcVals['b'].includes(".")) {
+                calcVals['b'] += ".";
+                calculatorScreen.textContent += ".";
+            }
+            break;
+    }
 }
 
 function usePosNeg(val) {
-    
+    // multiply value by -1?
+    // string method to tack - on front?
 }
 
 function useEquals(val) {
     // dont write this yet
+    // call operator function and store value in ans
 }
 
 
