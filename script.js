@@ -200,19 +200,43 @@ function useDelete() {
 function useDecimal(val) {
     // place decimal after checking rest of number for other decimals
     switch(calcVals.prevType) {
-        
+
+        case(null):
+            calcVals.a = "0.";
+            calcVals.prevType = "A";
+            calculatorScreen.textContent = "0.";
+            console.table(calcVals);
+            break;
+
         case("A"):
             if (!calcVals['a'].includes(".")) {
                 calcVals['a'] += ".";
                 calculatorScreen.textContent += ".";
             }
+            console.table(calcVals);
             break;
+
+        case("OP"):
+            calcVals.b = "0.";
+            calcVals.prevType = "B";
+            calculatorScreen.textContent = "0.";
+            console.table(calcVals);
+            break;
+
         case("B"):
             if (!calcVals['b'].includes(".")) {
                 calcVals['b'] += ".";
                 calculatorScreen.textContent += ".";
             }
+            console.table(calcVals);
             break;
+        
+
+            // if (!calcVals['b'].includes(".") && calcVals.prevType == "OP") {
+            //     calcVals.b = "0.";
+            //     calculatorScreen.textContent = "0.";
+            // }
+            
     }
 }
 
