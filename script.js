@@ -83,7 +83,6 @@ const calculatorScreen = document.getElementById("calculatorScreen");
 console.table(calcVals);
 
 function useNumber(val) {
-    
     switch(calcVals.prevType) {
         case(null):
             console.log("null useNum ran");
@@ -94,7 +93,7 @@ function useNumber(val) {
             console.table(calcVals);
             break;
         case("A"):
-            console.log("number useNum ran");
+            console.log("A useNum ran");
             calcVals.a += val;
             calcVals.prevType = "A"; // make OP to test.  normally A
             calcVals.prevVal = calcVals.a;
@@ -102,7 +101,7 @@ function useNumber(val) {
             console.table(calcVals);
             break;
         case("OP"):
-            console.log("number useNum ran");
+            console.log("OP useNum ran");
             calcVals.b = val;
             calcVals.prevType = "B";
             calcVals.prevVal = calcVals.b;
@@ -110,7 +109,7 @@ function useNumber(val) {
             console.table(calcVals);
             break;
         case("B"):
-            console.log("number useNum ran");
+            console.log("B useNum ran");
             calcVals.b += val;
             calcVals.prevType = "B";
             calcVals.prevVal = calcVals.b;
@@ -118,17 +117,38 @@ function useNumber(val) {
             console.table(calcVals);
             break;
     }
-
 }
 
 function useOperator(val) {
+    switch(calcVals.prevType){
+        case(null):
+            console.log("null useOperator ran");
+            calcVals.a = 0;
+            calcVals.op = val;
+            calcVals.prevType = "OP";
+            calcVals.prevVal = calcVals.op;
+            calculatorScreen.textContent = calcVals.op;
+            console.table(calcVals);
+        default:
+            console.log("default useOperator ran");
+            calcVals.op = val;
+            calcVals.prevType = "OP";
+            calcVals.prevVal = calcVals.op;
+            calculatorScreen.textContent = calcVals.op;
+            console.table(calcVals);
+    }
     
 }
 
 
 
-function useClear(val) {
-
+function useClear() {
+    console.log("useClear called");
+    for (let key in calcVals) {
+        calcVals[key] = null;
+    }
+    calculatorScreen.textContent = 0;
+    console.table(calcVals);
 }
 
 function useDelete(val) {
