@@ -153,8 +153,6 @@ function useClear() {
 
 function useDelete() {
     switch(calcVals.prevType){
-        // case(null):
-        //     return;
         case("A"):
             if (calcVals['a'].length >= 2) {
                 console.log(calcVals['a'].length);
@@ -165,12 +163,9 @@ function useDelete() {
             else {
                 console.log("else ran");
                 calcVals.a = 0;
-                calcVals.prevType = null; // fixes bug?
+                calcVals.prevType = null;
                 calculatorScreen.textContent = 0;
                 console.table(calcVals);
-
-                // setting to zero causes bug where inputting
-                // new numbers keeps the leading 0
             }
             break;
         case("B"):
@@ -181,11 +176,9 @@ function useDelete() {
             }
             else {
                 calcVals.b = 0;
-                calcVals.prevType = 'OP'; // fixes bug?
+                calcVals.prevType = 'OP';
                 calculatorScreen.textContent = 0;
                 console.table(calcVals);
-                // setting to zero causes bug where inputting
-                // new numbers keeps the leading 0
             }
             break;
 
@@ -197,10 +190,8 @@ function useDelete() {
     }
 }
 
-function useDecimal(val) {
-    // place decimal after checking rest of number for other decimals
+function useDecimal() {
     switch(calcVals.prevType) {
-
         case(null):
             calcVals.a = "0.";
             calcVals.prevType = "A";
@@ -229,25 +220,46 @@ function useDecimal(val) {
                 calculatorScreen.textContent += ".";
             }
             console.table(calcVals);
-            break;
-        
-
-            // if (!calcVals['b'].includes(".") && calcVals.prevType == "OP") {
-            //     calcVals.b = "0.";
-            //     calculatorScreen.textContent = "0.";
-            // }
-            
+            break;    
     }
 }
 
-function usePosNeg(val) {
+function usePosNeg() {
     // multiply value by -1?
     // string method to tack - on front?
+    switch(calcVals.prevType) {
+        case(null):
+            calcVals.a = "-";
+            calcVals.prevType = "A";
+            calculatorScreen.textContent = `-${calculatorScreen.textContent}`;
+            console.table(calcVals);
+            break;
+        case("A"):
+            calcVals.a = `-${calcVals.a}`;
+            // calcVals.a *= -1;
+            calculatorScreen.textContent = calcVals.a;
+            break;
+        case("OP"):
+            calcVals.b = "-";
+            calcVals.prevType = "B";
+            calculatorScreen.textContent = `-${calculatorScreen.textContent}`;
+            console.table(calcVals);
+            break;
+        case("B"):
+            calcVals.b = `-${calcVals.b}`;
+            // calcVals.b *= -1;
+            calculatorScreen.textContent = calcVals.b;
+            break;
+    }
+
 }
 
 function useEquals(val) {
     // dont write this yet
     // call operator function and store value in ans
+
+    // CHECK NaN IN CASE SOMEONE PUTS A MINUS SIGN
+    // WITHOUT ANY EXTRA INFO
 }
 
 
