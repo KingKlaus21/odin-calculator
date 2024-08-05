@@ -200,10 +200,14 @@ function useDecimal() {
             break;
 
         case("A"):
-            if (!calcVals['a'].includes(".")) {
-                calcVals['a'] += ".";
-                calculatorScreen.textContent += ".";
+            if (!calcVals['a'].includes(".") && calcVals['a'].length > 1) {
+                calcVals['a'] = `${calcVals.a}.`;
             }
+            else if (!calcVals['a'].includes(".") && calcVals['a'].length == 1) {
+                calcVals['a'] = `${calcVals.a}0.`;
+            }
+            calculatorScreen.textContent = `${calcVals.a}`;
+            calcVals.prevType = "A";
             console.table(calcVals);
             break;
 
@@ -215,10 +219,14 @@ function useDecimal() {
             break;
 
         case("B"):
-            if (!calcVals['b'].includes(".")) {
-                calcVals['b'] += ".";
-                calculatorScreen.textContent += ".";
+            if (!calcVals['b'].includes(".") && calcVals['b'].length > 1) {
+                calcVals['b'] = `${calcVals.b}.`;
             }
+            else if (!calcVals['b'].includes(".") && calcVals['b'].length == 1) {
+                calcVals['b'] = `${calcVals.b}0.`;
+            }
+            calculatorScreen.textContent = `${calcVals.b}`;
+            calcVals.prevType = "B";
             console.table(calcVals);
             break;    
     }
@@ -229,29 +237,42 @@ function usePosNeg() {
     // string method to tack - on front?
     switch(calcVals.prevType) {
         case(null):
+            console.log('ran posNeg null');
             calcVals.a = "-";
             calcVals.prevType = "A";
             calculatorScreen.textContent = `-${calculatorScreen.textContent}`;
             console.table(calcVals);
             break;
         case("A"):
-            calcVals.a = `-${calcVals.a}`;
-            // calcVals.a *= -1;
+            console.log('ran posNeg A');
+            if (!calcVals['a'].includes("-")) {
+                calcVals.a = `-${calcVals.a}`;
+            }
+            else {
+                calcVals.a = calcVals['a'].slice(1, calcVals['a'].length); // FIX
+            }
             calculatorScreen.textContent = calcVals.a;
+            console.table(calcVals);
             break;
         case("OP"):
+            console.log('ran posNeg OP');
             calcVals.b = "-";
             calcVals.prevType = "B";
-            calculatorScreen.textContent = `-${calculatorScreen.textContent}`;
+            calculatorScreen.textContent = `-0`;
             console.table(calcVals);
             break;
         case("B"):
-            calcVals.b = `-${calcVals.b}`;
-            // calcVals.b *= -1;
+            console.log('ran posNeg A');
+            if (!calcVals['b'].includes("-")) {
+                calcVals.b = `-${calcVals.b}`;
+            }
+            else {
+                calcVals.b = calcVals['b'].slice(1, calcVals['b'].length);
+            }
             calculatorScreen.textContent = calcVals.b;
+            console.table(calcVals);
             break;
     }
-
 }
 
 function useEquals(val) {
