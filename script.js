@@ -1,17 +1,17 @@
 'use strict'
 
-// let a = 25;
-// let b = 5;
-// let operator = '';
 
 const calcVals = {
     a: null,
     b: null,
     op: null,
-    prevType: null, //formerly previousClass
-    // prevVal: null,
-    ans: null,
+    prevType: null,
+    ans: null
 }
+
+
+const calculatorButtonContainer = document.getElementById("calculatorButtonContainer");
+const calculatorScreen = document.getElementById("calculatorScreen");
 
 
 const addNums = (a,b) => a + b;
@@ -36,7 +36,6 @@ function operate(a,b,op) {
     }
 }
 
-const calculatorButtonContainer = document.getElementById("calculatorButtonContainer");
 
 calculatorButtonContainer.addEventListener('click', (item) => {
     if (item.target !== calculatorButtonContainer) {
@@ -52,9 +51,11 @@ calculatorButtonContainer.addEventListener('click', (item) => {
         if (Boolean(itemClass) === true) {
             switch(itemClass) {
                 case("number"):
-                    return useNumber(itemText);
+                    useNumber(itemText);
+                    break;
                 case("operator"):
-                    return useOperator(itemText);
+                    useOperator(itemText);
+                    break;
                 default:
                     break;
                     // in case I accidentally add a style class it will go to id switch case
@@ -63,24 +64,36 @@ calculatorButtonContainer.addEventListener('click', (item) => {
         else {
             switch(itemId) {
                 case("clear"):
-                    return useClear(itemText);
+                    useClear(itemText);
+                    break;
                 case("delete"):
-                    return useDelete(itemText);
+                    useDelete(itemText);
+                    break;
                 case("decimal"):
-                    return useDecimal(itemText);
+                    useDecimal(itemText);
+                    break;
                 case("posNeg"):
-                    return usePosNeg(itemText);
+                    usePosNeg(itemText);
+                    break;
                 case("equals"):
-                    return useEquals(itemText);
+                    useEquals(itemText);
+                    break;
             }
         }
     }
 });
 
-const calculatorScreen = document.getElementById("calculatorScreen");
-// let screenVal = calculatorScreen.textContent;
 
-console.table(calcVals);
+console.table(calcVals); // get rid of this in end
+
+
+function checkLength() {
+    const keys = Object.keys(calcVals).slice(0, 3);
+    // keys.map((key) => console.log(calcVals[key]));
+    keys.map((key) => typeof calcVals[key] == 'string' && calcVals[key].length >= 10 ? calcVals[key] = calcVals[key].slice(0,10) : console.log('null or not 10'));
+    // switch this to slice(0,8) if negatives cause issues
+}
+
 
 function useNumber(val) {
     switch(calcVals.prevType) {
@@ -88,15 +101,15 @@ function useNumber(val) {
             console.log("null useNum ran");
             calcVals.a = val;
             calcVals.prevType = "A";
-            // calcVals.prevVal = calcVals.a;
+            checkLength();
             calculatorScreen.textContent = calcVals.a;
             console.table(calcVals);
             break;
         case("A"):
             console.log("A useNum ran");
             calcVals.a += val;
-            calcVals.prevType = "A"; // make OP to test.  normally A
-            // calcVals.prevVal = calcVals.a;
+            calcVals.prevType = "A";
+            checkLength();
             calculatorScreen.textContent = calcVals.a;
             console.table(calcVals);
             break;
@@ -104,7 +117,7 @@ function useNumber(val) {
             console.log("OP useNum ran");
             calcVals.b = val;
             calcVals.prevType = "B";
-            // calcVals.prevVal = calcVals.b;
+            checkLength();
             calculatorScreen.textContent = calcVals.b;
             console.table(calcVals);
             break;
@@ -112,12 +125,13 @@ function useNumber(val) {
             console.log("B useNum ran");
             calcVals.b += val;
             calcVals.prevType = "B";
-            // calcVals.prevVal = calcVals.b;
+            checkLength();
             calculatorScreen.textContent = calcVals.b;
             console.table(calcVals);
             break;
     }
 }
+
 
 function useOperator(val) {
     switch(calcVals.prevType){
@@ -126,20 +140,18 @@ function useOperator(val) {
             calcVals.a = 0;
             calcVals.op = val;
             calcVals.prevType = "OP";
-            // calcVals.prevVal = calcVals.op;
             calculatorScreen.textContent = calcVals.op;
             console.table(calcVals);
+            break;
         default:
             console.log("default useOperator ran");
             calcVals.op = val;
             calcVals.prevType = "OP";
-            // calcVals.prevVal = calcVals.op;
             calculatorScreen.textContent = calcVals.op;
             console.table(calcVals);
+            break;
     }
-    
 }
-
 
 
 function useClear() {
@@ -150,6 +162,7 @@ function useClear() {
     calculatorScreen.textContent = 0;
     console.table(calcVals);
 }
+
 
 function useDelete() {
     switch(calcVals.prevType){
@@ -181,14 +194,9 @@ function useDelete() {
                 console.table(calcVals);
             }
             break;
-
-        // case("OP"):
-        //     calcVals['op'].slice(0, 1);
-        //     // calcVals.prevType = 'OP';
-        //     calculatorScreen.textContent = "hello"; //"\u00A0";
-
     }
 }
+
 
 function useDecimal() {
     switch(calcVals.prevType) {
@@ -198,33 +206,32 @@ function useDecimal() {
             calculatorScreen.textContent = "0.";
             console.table(calcVals);
             break;
-
         case("A"):
-            if (!calcVals['a'].includes(".") && calcVals['a'].length > 1) {
+            if (!calcVals['a'].includes(".") && calcVals['a'].length > 1 && calcVals['a'].length < 9) {
                 calcVals['a'] = `${calcVals.a}.`;
             }
             else if (!calcVals['a'].includes(".") && calcVals['a'].length == 1) {
                 calcVals['a'] = `${calcVals.a}0.`;
             }
+            checkLength();
             calculatorScreen.textContent = `${calcVals.a}`;
             calcVals.prevType = "A";
             console.table(calcVals);
             break;
-
         case("OP"):
             calcVals.b = "0.";
             calcVals.prevType = "B";
             calculatorScreen.textContent = "0.";
             console.table(calcVals);
             break;
-
         case("B"):
-            if (!calcVals['b'].includes(".") && calcVals['b'].length > 1) {
+            if (!calcVals['b'].includes(".") && calcVals['b'].length > 1 && calcVals['b'].length < 9) {
                 calcVals['b'] = `${calcVals.b}.`;
             }
             else if (!calcVals['b'].includes(".") && calcVals['b'].length == 1) {
                 calcVals['b'] = `${calcVals.b}0.`;
             }
+            checkLength();
             calculatorScreen.textContent = `${calcVals.b}`;
             calcVals.prevType = "B";
             console.table(calcVals);
@@ -232,9 +239,8 @@ function useDecimal() {
     }
 }
 
+
 function usePosNeg() {
-    // multiply value by -1?
-    // string method to tack - on front?
     switch(calcVals.prevType) {
         case(null):
             console.log('ran posNeg null');
@@ -251,6 +257,7 @@ function usePosNeg() {
             else {
                 calcVals.a = calcVals['a'].slice(1, calcVals['a'].length); // FIX
             }
+            checkLength();
             calculatorScreen.textContent = calcVals.a;
             console.table(calcVals);
             break;
@@ -269,11 +276,13 @@ function usePosNeg() {
             else {
                 calcVals.b = calcVals['b'].slice(1, calcVals['b'].length);
             }
+            checkLength();
             calculatorScreen.textContent = calcVals.b;
             console.table(calcVals);
             break;
     }
 }
+
 
 function useEquals(val) {
     // dont write this yet
