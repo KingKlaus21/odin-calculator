@@ -111,67 +111,61 @@ function checkLength() {
 // }
 
 
-// WORKING
-function checkLeadZero(val) {
-    console.log('ran checkLeadZero');
-    // if (typeof calcVals['a'] == 'string' && calcVals['a'].length == 3 && calcVals['a'].charAt(0) == '-' && calcVals['a'].charAt(1) == '0' && val != '-' && val != '.') {
-    //     console.log('checkLeadZero first if ran');
-    //     calcVals['a'] = calcVals['a'].slice(0, 1) + val;
-    //     calculatorScreen.textContent = calcVals['a'];
-    // }
-    // else if (typeof calcVals['a'] == 'string' && calcVals['a'].length == 2 && calcVals['a'].charAt(0) == '0' && val != '-' && val != '.') {
-    //     console.log('checkLeadZero second if ran');
-    //     calcVals['a'] = val;
-    //     calculatorScreen.textContent = calcVals['a'];
-    // }
-}
+// WAS WORKING BUT NOW BROKEN
+// function checkLeadZero(val) {
+//     console.log('ran checkLeadZero');
+//     if (typeof calcVals['a'] == 'string' && calcVals['a'].length == 3 && calcVals['a'].charAt(0) == '-' && calcVals['a'].charAt(1) == '0' && val != '-' && val != '.') {
+//         console.log('checkLeadZero first if ran');
+//         calcVals['a'] = calcVals['a'].slice(0, 1) + val;
+//         calculatorScreen.textContent = calcVals['a'];
+//     }
+//     else if (typeof calcVals['a'] == 'string' && calcVals['a'].length == 2 && calcVals['a'].charAt(0) == '0' && val != '-' && val != '.') {
+//         console.log('checkLeadZero second if ran');
+//         calcVals['a'] = val;
+//         calculatorScreen.textContent = calcVals['a'];
+//     }
+// }
 
 
 // TESTING
-// function checkLeadZero(val) {
-//     const currentVal = typeof calcVals.prevType != 'string' || calcVals.prevType == 'A' ? 'a' : 'b'; //sets the value to check if else
+function checkLeadZero(val) {
+    const currentVal = typeof calcVals.prevType != 'string' || calcVals.prevType == 'A' ? 'a' : 'b'; //sets the value to check if else
 
-//     if (calcVals[currentVal].length > 4) {
-//         console.log('no reason to check LeadZero');
-//         return;
-//     }
-//     else {
-//         console.log('checking LeadZero');
-//         console.log(calcVals[currentVal].length);
-//         console.log(calcVals[currentVal].length > 3);
+    if (calcVals[currentVal].length < 4) {
+        console.log('testing checkLeadZero');
 
-//         if (typeof calcVals[currentVal] == 'string' && calcVals[currentVal].length == 3 && calcVals[currentVal].charAt(0) == '-' && calcVals[currentVal].charAt(1) == '0' && val != '-' && val != '.') {
-//         console.log('checkLeadZero first if ran');
-//         calcVals[currentVal] = calcVals[currentVal].slice(0, 1) + val;
-//         calculatorScreen.textContent = calcVals[currentVal];
-//         }
-//         else if (typeof calcVals[currentVal] == 'string' && calcVals[currentVal].length == 2 && calcVals[currentVal].charAt(0) == '0' && val != '-' && val != '.') {
-//             console.log('checkLeadZero second if ran');
-//             calcVals[currentVal] = val;
-//             calculatorScreen.textContent = calcVals[currentVal];
-//         }
-//     }
+        if (typeof calcVals[currentVal] == 'string' && calcVals[currentVal].length == 3 && calcVals[currentVal].charAt(0) == '-' && calcVals[currentVal].charAt(1) == '0' && val != '-' && val != '.') {
+        console.log('checkLeadZero first if ran');
+        calcVals[currentVal] = calcVals[currentVal].slice(0, 1) + val;
+        calculatorScreen.textContent = calcVals[currentVal];
+        }
+        else if (typeof calcVals[currentVal] == 'string' && calcVals[currentVal].length == 2 && calcVals[currentVal].charAt(0) == '0' && val != '-' && val != '.') {
+            console.log('checkLeadZero second if ran');
+            calcVals[currentVal] = val;
+            calculatorScreen.textContent = calcVals[currentVal];
+        }
+    }
 
-//     // console.log(`currentVal: ${currentVal}`);
-//     // console.log('value of calcVals from currentVal: ' + calcVals[currentVal]);
+    // console.log(`currentVal: ${currentVal}`);
+    // console.log('value of calcVals from currentVal: ' + calcVals[currentVal]);
 
 
 
-//     // for (let i = 0; i < 2; i++) {
-//     //     console.log(i);
-//     //     if (typeof calcVals['a'] == 'string' && calcVals['a'].length == 3 && calcVals['a'].charAt(0) == '-' && calcVals['a'].charAt(1) == '0' && val != '-' && val != '.') {
-//     //         console.log('checkLeadZero first if ran');
-//     //         calcVals['a'] = calcVals['a'].slice(0, 1) + val;
-//     //         calculatorScreen.textContent = calcVals['a'];
-//     //     }
-//     //     else if (typeof calcVals['a'] == 'string' && calcVals['a'].length == 2 && calcVals['a'].charAt(0) == '0' && val != '-' && val != '.') {
-//     //         console.log('checkLeadZero second if ran');
-//     //         calcVals['a'] = val;
-//     //         calculatorScreen.textContent = calcVals['a'];
-//     //     }
-//     // }
+    // for (let i = 0; i < 2; i++) {
+    //     console.log(i);
+    //     if (typeof calcVals['a'] == 'string' && calcVals['a'].length == 3 && calcVals['a'].charAt(0) == '-' && calcVals['a'].charAt(1) == '0' && val != '-' && val != '.') {
+    //         console.log('checkLeadZero first if ran');
+    //         calcVals['a'] = calcVals['a'].slice(0, 1) + val;
+    //         calculatorScreen.textContent = calcVals['a'];
+    //     }
+    //     else if (typeof calcVals['a'] == 'string' && calcVals['a'].length == 2 && calcVals['a'].charAt(0) == '0' && val != '-' && val != '.') {
+    //         console.log('checkLeadZero second if ran');
+    //         calcVals['a'] = val;
+    //         calculatorScreen.textContent = calcVals['a'];
+    //     }
+    // }
     
-// }
+}
 
 
 // NOT WORKING
