@@ -88,11 +88,113 @@ console.table(calcVals); // get rid of this in end
 
 
 function checkLength() {
-    const keys = Object.keys(calcVals).slice(0, 3);
-    // keys.map((key) => console.log(calcVals[key]));
-    keys.map((key) => typeof calcVals[key] == 'string' && calcVals[key].length >= 10 ? calcVals[key] = calcVals[key].slice(0,10) : console.log('null or not 10'));
-    // switch this to slice(0,8) if negatives cause issues
+    return Object
+        .keys(calcVals)
+        .slice(0, 2)
+        .map((key) => typeof calcVals[key] == 'string' && calcVals[key].length >= 10 
+            ? calcVals[key] = calcVals[key].slice(0,10) 
+            : console.log('null or not 10'));
 }
+
+
+// function checkLeadZero(val) {
+//     console.log('checkLeadZero ran');
+//     return Object
+//         .keys(calcVals)
+//         .slice(0,2) // only for a and b
+//         .map((key) => ((typeof calcVals[key] == 'string' && calcVals[key].includes("-") && calcVals[key].length == 2 && calcVals[key].charAt(1) == '0') // -0 is invalid??
+//                     || (typeof calcVals[key] == 'string' && calcVals[key].length == 1 && val != "." && val != "-" && val != "0") 
+//                         ? calcVals[key] = calcVals[key].slice(0,1) + val //makes -0 invalid???
+//                         : console.log('no problems detected'))
+    
+//     );
+// }
+
+
+// WORKING
+function checkLeadZero(val) {
+    console.log('ran checkLeadZero');
+    // if (typeof calcVals['a'] == 'string' && calcVals['a'].length == 3 && calcVals['a'].charAt(0) == '-' && calcVals['a'].charAt(1) == '0' && val != '-' && val != '.') {
+    //     console.log('checkLeadZero first if ran');
+    //     calcVals['a'] = calcVals['a'].slice(0, 1) + val;
+    //     calculatorScreen.textContent = calcVals['a'];
+    // }
+    // else if (typeof calcVals['a'] == 'string' && calcVals['a'].length == 2 && calcVals['a'].charAt(0) == '0' && val != '-' && val != '.') {
+    //     console.log('checkLeadZero second if ran');
+    //     calcVals['a'] = val;
+    //     calculatorScreen.textContent = calcVals['a'];
+    // }
+}
+
+
+// TESTING
+// function checkLeadZero(val) {
+//     const currentVal = typeof calcVals.prevType != 'string' || calcVals.prevType == 'A' ? 'a' : 'b'; //sets the value to check if else
+
+//     if (calcVals[currentVal].length > 4) {
+//         console.log('no reason to check LeadZero');
+//         return;
+//     }
+//     else {
+//         console.log('checking LeadZero');
+//         console.log(calcVals[currentVal].length);
+//         console.log(calcVals[currentVal].length > 3);
+
+//         if (typeof calcVals[currentVal] == 'string' && calcVals[currentVal].length == 3 && calcVals[currentVal].charAt(0) == '-' && calcVals[currentVal].charAt(1) == '0' && val != '-' && val != '.') {
+//         console.log('checkLeadZero first if ran');
+//         calcVals[currentVal] = calcVals[currentVal].slice(0, 1) + val;
+//         calculatorScreen.textContent = calcVals[currentVal];
+//         }
+//         else if (typeof calcVals[currentVal] == 'string' && calcVals[currentVal].length == 2 && calcVals[currentVal].charAt(0) == '0' && val != '-' && val != '.') {
+//             console.log('checkLeadZero second if ran');
+//             calcVals[currentVal] = val;
+//             calculatorScreen.textContent = calcVals[currentVal];
+//         }
+//     }
+
+//     // console.log(`currentVal: ${currentVal}`);
+//     // console.log('value of calcVals from currentVal: ' + calcVals[currentVal]);
+
+
+
+//     // for (let i = 0; i < 2; i++) {
+//     //     console.log(i);
+//     //     if (typeof calcVals['a'] == 'string' && calcVals['a'].length == 3 && calcVals['a'].charAt(0) == '-' && calcVals['a'].charAt(1) == '0' && val != '-' && val != '.') {
+//     //         console.log('checkLeadZero first if ran');
+//     //         calcVals['a'] = calcVals['a'].slice(0, 1) + val;
+//     //         calculatorScreen.textContent = calcVals['a'];
+//     //     }
+//     //     else if (typeof calcVals['a'] == 'string' && calcVals['a'].length == 2 && calcVals['a'].charAt(0) == '0' && val != '-' && val != '.') {
+//     //         console.log('checkLeadZero second if ran');
+//     //         calcVals['a'] = val;
+//     //         calculatorScreen.textContent = calcVals['a'];
+//     //     }
+//     // }
+    
+// }
+
+
+// NOT WORKING
+// function checkLeadZero(val) {
+//     console.log('checkLeadZero ran');
+//     Object
+//         .keys(calcVals)
+//         .slice(0,2)
+//         .map((key, index) => {
+//             console.log(index);
+//             if (typeof calcVals[key] == 'string' && calcVals[key].length == index + 2 && calcVals[key].charAt(index) == '0' /*&& val != '-'*/ && val != '.') {
+//                 console.log(`charAt(0) is ${calcVals[key].charAt(1)}`);
+//                 if (calcVals[key].charAt(0) == '-') {
+//                     console.log('yes negative ran');
+//                     calculatorScreen.textContent = 'yes neg ran';
+//                 }
+//                 else {
+//                     console.log('no negative ran');
+//                     calculatorScreen.textContent = 'no neg ran';
+//                 }
+//             }
+//         });
+// }
 
 
 function useNumber(val) {
@@ -130,6 +232,7 @@ function useNumber(val) {
             console.table(calcVals);
             break;
     }
+    checkLeadZero(val);
 }
 
 
@@ -211,7 +314,7 @@ function useDecimal() {
                 calcVals['a'] = `${calcVals.a}.`;
             }
             else if (!calcVals['a'].includes(".") && calcVals['a'].length == 1) {
-                calcVals['a'] = `${calcVals.a}0.`;
+                calcVals['a'] = `${calcVals.a}.`;
             }
             checkLength();
             calculatorScreen.textContent = `${calcVals.a}`;
