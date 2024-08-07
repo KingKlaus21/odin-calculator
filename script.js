@@ -367,8 +367,11 @@ function usePosNeg() {
             if (!calcVals['a'].includes("-")) {
                 calcVals.a = `-${calcVals.a}`;
             }
+            else if (calcVals['a'] != '-') {
+                calcVals.a = calcVals['a'].slice(1, calcVals['a'].length);
+            }
             else {
-                calcVals.a = calcVals['a'].slice(1, calcVals['a'].length); // FIX
+                calcVals.a = '0';
             }
             checkLength();
             calculatorScreen.textContent = calcVals.a;
@@ -382,12 +385,15 @@ function usePosNeg() {
             console.table(calcVals);
             break;
         case("B"):
-            console.log('ran posNeg A');
+            console.log('ran posNeg B');
             if (!calcVals['b'].includes("-")) {
                 calcVals.b = `-${calcVals.b}`;
             }
-            else {
+            else if (calcVals['b'] != '-') {
                 calcVals.b = calcVals['b'].slice(1, calcVals['b'].length);
+            }
+            else {
+                calcVals.b = '0';
             }
             checkLength();
             calculatorScreen.textContent = calcVals.b;
