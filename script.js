@@ -304,16 +304,23 @@ function useDelete() {
 function useDecimal() {
     switch(calcVals.prevType) {
         case(null):
+            console.log('useDecimal null ran');
             calcVals.a = "0.";
             calcVals.prevType = "A";
             calculatorScreen.textContent = "0.";
             console.table(calcVals);
             break;
         case("A"):
+            console.log('useDecimal A ran');
             if (!calcVals['a'].includes(".") && calcVals['a'].length > 1 && calcVals['a'].length < 9) {
                 calcVals['a'] = `${calcVals.a}.`;
             }
+            else if (!calcVals['a'].includes(".") && calcVals['a'].length == 1 && calcVals['a'].includes('-')) {
+                console.log('ran second if');
+                calcVals['a'] = `${calcVals.a}0.`; // problem with single digits, but setting to "." only causes bug with putting "-"
+            }
             else if (!calcVals['a'].includes(".") && calcVals['a'].length == 1) {
+                console.log('ran third if');
                 calcVals['a'] = `${calcVals.a}.`;
             }
             checkLength();
@@ -331,8 +338,11 @@ function useDecimal() {
             if (!calcVals['b'].includes(".") && calcVals['b'].length > 1 && calcVals['b'].length < 9) {
                 calcVals['b'] = `${calcVals.b}.`;
             }
-            else if (!calcVals['b'].includes(".") && calcVals['b'].length == 1) {
+            else if (!calcVals['b'].includes(".") && calcVals['b'].length == 1 && calcVals['b'].includes('-')) {
                 calcVals['b'] = `${calcVals.b}0.`;
+            }
+            else if (!calcVals['b'].includes(".") && calcVals['b'].length == 1) {
+                calcVals['b'] = `${calcVals.b}.`;
             }
             checkLength();
             calculatorScreen.textContent = `${calcVals.b}`;
