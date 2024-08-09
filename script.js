@@ -270,9 +270,19 @@ function usePosNeg() {
     switch(calcVals.prevType) {
         case(null):
             console.log('ran posNeg null');
-            calcVals.a = "-";
+            if (typeof calcVals['a'] == 'string') {
+                if (calcVals['a'].includes("-")) {
+                    calcVals.a = calcVals['a'].slice(1, calcVals['a'].length);
+                }
+                else if (!calcVals['a'].includes("-")) {
+                    calcVals.a = `-${calcVals.a}`;
+                }
+            }
+            else {
+                calcVals.a = "-0";
+            }
             calcVals.prevType = "A";
-            calculatorScreen.textContent = `-${calculatorScreen.textContent}`;
+            calculatorScreen.textContent = calcVals.a;
             console.table(calcVals);
             break;
         case("A"):
@@ -286,7 +296,6 @@ function usePosNeg() {
             else {
                 calcVals.a = '0';
             }
-            // checkLength();
             calculatorScreen.textContent = calcVals.a;
             console.table(calcVals);
             break;
@@ -308,7 +317,6 @@ function usePosNeg() {
             else {
                 calcVals.b = '0';
             }
-            // checkLength();
             calculatorScreen.textContent = calcVals.b;
             console.table(calcVals);
             break;
