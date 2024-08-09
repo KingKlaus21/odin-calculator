@@ -14,27 +14,27 @@ const calculatorButtonContainer = document.getElementById("calculatorButtonConta
 const calculatorScreen = document.getElementById("calculatorScreen");
 
 
-const addNums = (a,b) => a + b;
-const subtractNums = (a,b) => a - b;
-const multiplyNums = (a,b) => a * b;
-const divideNums = (a,b) => a / b;
-const percentNums = (a,b) => b / (100 / a);
+// const addNums = (a,b) => a + b;
+// const subtractNums = (a,b) => a - b;
+// const multiplyNums = (a,b) => a * b;
+// const divideNums = (a,b) => a / b;
+// const percentNums = (a,b) => b / (100 / a);
 
 
-function operate(a,b,op) {
-    switch(op) {
-        case("+"):
-            return addNums(a,b);
-        case("-"):
-            return subtractNums(a,b);
-        case("x"):
-            return multiplyNums(a,b);
-        case("/"):
-            return divideNums(a,b);
-        case("%"):
-            return percentNums(a,b);
-    }
-}
+// function operate(a,b,op) {
+//     switch(op) {
+//         case("+"):
+//             return addNums(a,b);
+//         case("-"):
+//             return subtractNums(a,b);
+//         case("*"):
+//             return multiplyNums(a,b);
+//         case("/"):
+//             return divideNums(a,b);
+//         case("%"):
+//             return percentNums(a,b);
+//     }
+// }
 
 
 calculatorButtonContainer.addEventListener('click', (item) => {
@@ -170,7 +170,7 @@ function useOperator(val) {
     switch(calcVals.prevType){
         case(null):
             console.log("null useOperator ran");
-            calcVals.a = 0;
+            calcVals.a = '0';
             calcVals.op = val;
             calcVals.prevType = "OP";
             calculatorScreen.textContent = calcVals.op;
@@ -333,12 +333,46 @@ function usePosNeg() {
 }
 
 
-function useEquals(val) {
-    // dont write this yet
-    // call operator function and store value in ans
+function useEquals() {
+    if (typeof calcVals['a'] == 'string' && typeof calcVals['b'] == 'string' && typeof calcVals['op'] == 'string') {
+        console.log('useEquals all vals ran');
+        calcVals['ans'] = operate(calcVals['a'], calcVals['b'], calcVals['op']);
+    }
+    else if (typeof calcVals['a'] == 'string' && typeof calcVals['b'] != 'string' && typeof calcVals['op'] == 'string') {
+        console.log('useEquals no b ran');
+        calcVals['ans'] = operate(calcVals['a'], calcVals['a'], calcVals['op']);
+    }
+    else if (typeof calcVals['a'] == 'string' && typeof calcVals['b'] != 'string' && typeof calcVals['op'] != 'string') {
+        console.log('useEquals only a ran');
+        calcVals['ans'] = calcVals['a'];
+    }
+    else {
+        console.log('useEquals no values ran');
+        return;
+    }
+    console.log(calcVals['ans']);
+    calculatorScreen.textContent = calcVals['ans'];
+    calcVals['a'] = calcVals['ans'];
+    calcVals['prevType'] = null;
+    console.table(calcVals);
+    calcVals['typeof'] = null;
+}
 
-    // CHECK NaN IN CASE SOMEONE PUTS A MINUS SIGN
-    // WITHOUT ANY EXTRA INFO
+
+function operate(a,b,op) {
+    
+    switch(op) {
+        case("+"):
+            return (+a + +b).toString(); // first and last pluses make a and b numbers
+        case("-"):
+            return (a - b).toString();
+        case("*"):
+            return (a * b).toString();
+        case("/"):
+            return (a / b).toString();
+        case("%"):
+            return (b / (100 / a)).toString();
+    }
 }
 
 

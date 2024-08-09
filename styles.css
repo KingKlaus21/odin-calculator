@@ -38,6 +38,7 @@ div {
 
 }
 
+/* buttons */
 #calculatorButtonContainer>*{
     font-size: 32px;
     border-color: purple;
