@@ -14,29 +14,6 @@ const calculatorButtonContainer = document.getElementById("calculatorButtonConta
 const calculatorScreen = document.getElementById("calculatorScreen");
 
 
-// const addNums = (a,b) => a + b;
-// const subtractNums = (a,b) => a - b;
-// const multiplyNums = (a,b) => a * b;
-// const divideNums = (a,b) => a / b;
-// const percentNums = (a,b) => b / (100 / a);
-
-
-// function operate(a,b,op) {
-//     switch(op) {
-//         case("+"):
-//             return addNums(a,b);
-//         case("-"):
-//             return subtractNums(a,b);
-//         case("*"):
-//             return multiplyNums(a,b);
-//         case("/"):
-//             return divideNums(a,b);
-//         case("%"):
-//             return percentNums(a,b);
-//     }
-// }
-
-
 calculatorButtonContainer.addEventListener('click', (item) => {
     if (item.target !== calculatorButtonContainer) {
 
@@ -131,7 +108,10 @@ function useNumber(val) {
     switch(calcVals.prevType) {
         case(null):
             console.log("null useNum ran");
+
             calcVals.a = val;
+            calcVals.b = null;
+            calcVals.op = null;
             calcVals.prevType = "A";
             checkLength();
             calculatorScreen.textContent = calcVals.a;
@@ -170,7 +150,9 @@ function useOperator(val) {
     switch(calcVals.prevType){
         case(null):
             console.log("null useOperator ran");
-            calcVals.a = '0';
+            if (typeof calcVals['a'] != 'string') {
+                calcVals.a = '0';
+            }
             calcVals.op = val;
             calcVals.prevType = "OP";
             calculatorScreen.textContent = calcVals.op;
@@ -192,7 +174,7 @@ function useClear() {
     for (let key in calcVals) {
         calcVals[key] = null;
     }
-    calculatorScreen.textContent = 0;
+    calculatorScreen.textContent = '0';
     console.table(calcVals);
 }
 
@@ -208,9 +190,9 @@ function useDelete() {
             }
             else {
                 console.log("else ran");
-                calcVals.a = 0;
+                calcVals.a = '0';
                 calcVals.prevType = null;
-                calculatorScreen.textContent = 0;
+                calculatorScreen.textContent = '0';
                 console.table(calcVals);
             }
             break;
@@ -221,9 +203,9 @@ function useDelete() {
                 console.table(calcVals);
             }
             else {
-                calcVals.b = 0;
+                calcVals.b = '0';
                 calcVals.prevType = 'OP';
-                calculatorScreen.textContent = 0;
+                calculatorScreen.textContent = '0';
                 console.table(calcVals);
             }
             break;
@@ -232,6 +214,7 @@ function useDelete() {
 
 
 function useDecimal() {
+    // this always reassigns, even if you want a fresh ans (ans = a) to put a '.' at the end.
     switch(calcVals.prevType) {
         case(null):
             console.log('useDecimal null ran');
@@ -355,7 +338,6 @@ function useEquals() {
     calcVals['a'] = calcVals['ans'];
     calcVals['prevType'] = null;
     console.table(calcVals);
-    calcVals['typeof'] = null;
 }
 
 
