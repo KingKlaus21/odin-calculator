@@ -11,8 +11,10 @@ div {
 }
 
 #calculatorBody {
-    width: 69%;
-    height: 60%;
+    /* width: 69%;
+    height: 60%; */
+    width: 430px;
+    height: 540px;
     background-color: black;
     padding: 12px;
     display: flex;

@@ -218,9 +218,24 @@ function useDecimal() {
     switch(calcVals.prevType) {
         case(null):
             console.log('useDecimal null ran');
-            calcVals.a = "0.";
+            if (typeof calcVals['a'] == 'string') {
+                if (!calcVals['a'].includes(".") && calcVals['a'].length > 1 && calcVals['a'].length < 9) {
+                    calcVals['a'] = `${calcVals.a}.`;
+                }
+                else if (!calcVals['a'].includes(".") && calcVals['a'].length == 1 && calcVals['a'].includes('-')) {
+                    console.log('ran second if');
+                    calcVals['a'] = `${calcVals.a}0.`; // problem with single digits, but setting to "." only causes bug with putting "-"
+                }
+                else if (!calcVals['a'].includes(".") && calcVals['a'].length == 1) {
+                    console.log('ran third if');
+                    calcVals['a'] = `${calcVals.a}.`;
+                }
+            }
+            else {
+                calcVals.a = "0.";
+            }
             calcVals.prevType = "A";
-            calculatorScreen.textContent = "0.";
+            calculatorScreen.textContent = calcVals.a;
             console.table(calcVals);
             break;
         case("A"):
