@@ -69,7 +69,7 @@ function checkLength() {
         .keys(calcVals)
         .slice(0, 2)
         .map((key) => {
-            if (typeof calcVals[key] =='string') {
+            if (typeof calcVals[key] == 'string' /*&& !calcVals[key].includes('e+')*/) {
                 if (calcVals[key].length >= 11 && calcVals[key].includes('-') && calcVals[key].includes('.')) {
                     calcVals[key] = calcVals[key].slice(0,11);
                 }
@@ -119,10 +119,21 @@ function useNumber(val) {
             break;
         case("A"):
             console.log("A useNum ran");
-            calcVals.a += val;
+            if (typeof calcVals['a'] == 'string' && calcVals['a'].includes('e+')) {
+                calcVals.a = val;
+                calculatorScreen.textContent = calcVals.a;
+                calcVals.b = null;
+                calcVals.op = null;
+            }
+            else if (typeof calcVals['a'] == 'string' && !calcVals['a'].includes('e+')) {
+                calcVals.a += val;
+                checkLength();
+                calculatorScreen.textContent = calcVals.a;
+            }
+            // calcVals.a += val;
             calcVals.prevType = "A";
-            checkLength();
-            calculatorScreen.textContent = calcVals.a;
+            // checkLength();
+            // calculatorScreen.textContent = calcVals.a;
             console.table(calcVals);
             break;
         case("OP"):
@@ -218,21 +229,21 @@ function useDecimal() {
     switch(calcVals.prevType) {
         case(null):
             console.log('useDecimal null ran');
-            if (typeof calcVals['a'] == 'string') {
+            if (typeof calcVals['a'] == 'string' && !calcVals['a'].includes('e+')) {
                 if (!calcVals['a'].includes(".") && calcVals['a'].length > 1 && calcVals['a'].length < 9) {
                     calcVals['a'] = `${calcVals.a}.`;
                 }
                 else if (!calcVals['a'].includes(".") && calcVals['a'].length == 1 && calcVals['a'].includes('-')) {
                     console.log('ran second if');
-                    calcVals['a'] = `${calcVals.a}0.`; // problem with single digits, but setting to "." only causes bug with putting "-"
+                    calcVals['a'] = `${calcVals.a}0.`;
                 }
                 else if (!calcVals['a'].includes(".") && calcVals['a'].length == 1) {
                     console.log('ran third if');
                     calcVals['a'] = `${calcVals.a}.`;
                 }
             }
-            else {
-                calcVals.a = "0.";
+            else if (typeof calcVals['a'] != 'string' || calcVals['a'].includes('e+')) {
+                calcVals['a'] = "0.";
             }
             calcVals.prevType = "A";
             calculatorScreen.textContent = calcVals.a;
@@ -285,19 +296,33 @@ function usePosNeg() {
     switch(calcVals.prevType) {
         case(null):
             console.log('ran posNeg null');
-            if (typeof calcVals['a'] == 'string') {
+            if (typeof calcVals['a'] == 'string' && calcVals['a'].includes('e+')) {
                 if (calcVals['a'].includes("-")) {
                     calcVals.a = calcVals['a'].slice(1, calcVals['a'].length);
+                    calculatorScreen.textContent = Number(calcVals.a).toExponential(5).toString();
                 }
                 else if (!calcVals['a'].includes("-")) {
                     calcVals.a = `-${calcVals.a}`;
+                    calculatorScreen.textContent = Number(calcVals.a).toExponential(5).toString();
+                }
+            }
+            else if (typeof calcVals['a'] == 'string') {
+                if (calcVals['a'].includes("-")) {
+                    calcVals.a = calcVals['a'].slice(1, calcVals['a'].length);
+                    calculatorScreen.textContent = calcVals.a;
+                    calcVals.prevType = "A";
+                }
+                else if (!calcVals['a'].includes("-")) {
+                    calcVals.a = `-${calcVals.a}`;
+                    calculatorScreen.textContent = calcVals.a;
+                    calcVals.prevType = "A";
                 }
             }
             else {
                 calcVals.a = "-0";
+                calculatorScreen.textContent = calcVals.a;
+                calcVals.prevType = "A";
             }
-            calcVals.prevType = "A";
-            calculatorScreen.textContent = calcVals.a;
             console.table(calcVals);
             break;
         case("A"):
@@ -357,14 +382,27 @@ function useEquals() {
         return;
     }
     console.log(calcVals['ans']);
-    calculatorScreen.textContent = calcVals['ans'];
-    calcVals['a'] = calcVals['ans'];
+
+    if (calcVals['ans'] > 999999999 || calcVals['ans'].length > 9) {
+
+        calculatorScreen.textContent = Number(calcVals['ans']).toExponential(5).toString();
+        calcVals['ans'] = Number(calcVals['ans']).toExponential().toString();
+        calcVals['a'] = Number(calcVals['ans']).toExponential().toString();
+    }
+    else {
+        calculatorScreen.textContent = calcVals['ans'];
+        calcVals['a'] = calcVals['ans'];
+    }
+
+    // calculatorScreen.textContent = calcVals['ans'];
+    // calcVals['a'] = calcVals['ans'];
     calcVals['prevType'] = null;
     console.table(calcVals);
 }
 
 
 function operate(a,b,op) {
+    // let finalVal;
     
     switch(op) {
         case("+"):
@@ -378,6 +416,9 @@ function operate(a,b,op) {
         case("%"):
             return (b / (100 / a)).toString();
     }
+    // return (finalVal > 999999999 || finalVal.length > 9 
+    //             ? finalVal.toExponential(5).toString() 
+    //             : finalVal.toString());
 }
 
 
