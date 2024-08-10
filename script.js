@@ -239,7 +239,7 @@ function useDecimal() {
     switch(calcVals.prevType) {
         case(null):
             console.log('useDecimal null ran');
-            if (typeof calcVals['a'] == 'string' && !calcVals['a'].includes('e+')) {
+            if (typeof calcVals['a'] == 'string' && !calcVals['a'].includes('e+') && calcVals['a'].length < 9) {
                 if (!calcVals['a'].includes(".") && calcVals['a'].length > 1 && calcVals['a'].length < 9) {
                     calcVals['a'] = `${calcVals.a}.`;
                 }
@@ -252,7 +252,7 @@ function useDecimal() {
                     calcVals['a'] = `${calcVals.a}.`;
                 }
             }
-            else if (typeof calcVals['a'] != 'string' || calcVals['a'].includes('e+')) {
+            else if (typeof calcVals['a'] != 'string' || calcVals['a'].includes('e+') || calcVals['a'].length > 9) {
                 calcVals['a'] = "0.";
             }
             checkLength(); // needed?
@@ -317,7 +317,7 @@ function usePosNeg() {
                     calculatorScreen.textContent = Number(calcVals.a).toExponential(4).toString();
                 }
             }
-            else if (typeof calcVals['a'] == 'string') {
+            else if (typeof calcVals['a'] == 'string' && calcVals['a'].length < 10) {
                 if (calcVals['a'].includes("-")) {
                     calcVals.a = calcVals['a'].slice(1, calcVals['a'].length);
                     calculatorScreen.textContent = calcVals.a;
@@ -328,6 +328,10 @@ function usePosNeg() {
                     calculatorScreen.textContent = calcVals.a;
                     calcVals.prevType = "A";
                 }
+            }
+            else if (typeof calcVals['a'] == 'string' && calcVals['a'].length >= 10) {
+                calcVals['a'] = (calcVals['a'] * -1).toString();
+                calculatorScreen.textContent = Number(calcVals['a']).toPrecision(9);
             }
             else {
                 calcVals.a = "-0";
