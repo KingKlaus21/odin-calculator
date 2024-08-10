@@ -71,19 +71,19 @@ function checkLength() {
         .slice(0, 2)
         .map((key) => {
             if (typeof calcVals[key] == 'string' /*&& !calcVals[key].includes('e+')*/) {
-                if (calcVals[key].length >= 11 && calcVals[key].includes('-') && calcVals[key].includes('.')) {
+                if (calcVals[key].length == 12 && calcVals[key].includes('-') && calcVals[key].includes('.')) {
                     console.log('checkLength yes - yes . ran');
                     calcVals[key] = calcVals[key].slice(0,11);
                 }
-                else if (calcVals[key].length >= 10 && calcVals[key].includes('-')) {
+                else if (calcVals[key].length == 11 && calcVals[key].includes('-') && !calcVals[key].includes('.')) {
                     console.log('checkLength yes - no . ran');
                     calcVals[key] = calcVals[key].slice(0,10);
                 }
-                else if (calcVals[key].length >= 10 && calcVals[key].includes('.')) {
+                else if (calcVals[key].length == 11 && !calcVals[key].includes('-') && calcVals[key].includes('.')) {
                     console.log('checkLength no - yes . ran');
                     calcVals[key] = calcVals[key].slice(0,10);
                 }
-                else {
+                else if (calcVals[key].length == 10 && !calcVals[key].includes('-') && !calcVals[key].includes('.')) {
                     console.log('checkLength no - no . ran');
                     calcVals[key] = calcVals[key].slice(0,9);
                 }
@@ -200,6 +200,8 @@ function useClear() {
 
 function useDelete() {
     switch(calcVals.prevType){
+        case(null):
+            break;
         case("A"):
             if (calcVals['a'].length >= 2) {
                 console.log(calcVals['a'].length);
@@ -308,11 +310,11 @@ function usePosNeg() {
             if (typeof calcVals['a'] == 'string' && calcVals['a'].includes('e+')) {
                 if (calcVals['a'].includes("-")) {
                     calcVals.a = calcVals['a'].slice(1, calcVals['a'].length);
-                    calculatorScreen.textContent = Number(calcVals.a).toExponential(5).toString();
+                    calculatorScreen.textContent = Number(calcVals.a).toExponential(4).toString();
                 }
                 else if (!calcVals['a'].includes("-")) {
                     calcVals.a = `-${calcVals.a}`;
-                    calculatorScreen.textContent = Number(calcVals.a).toExponential(5).toString();
+                    calculatorScreen.textContent = Number(calcVals.a).toExponential(4).toString();
                 }
             }
             else if (typeof calcVals['a'] == 'string') {
@@ -393,13 +395,22 @@ function useEquals() {
 
     console.log(calcVals['ans']);
 
-    if (calcVals['ans'] != 'NaN') {
-        if (calcVals['ans'] > 999999999 || calcVals['ans'].length > 9) {
-            calculatorScreen.textContent = Number(calcVals['ans']).toExponential(5).toString();
-            calcVals['ans'] = Number(calcVals['ans']).toExponential().toString();
-            calcVals['a'] = Number(calcVals['ans']).toExponential().toString();
+    if (calcVals['ans'] != 'NaN' && calcVals['ans'] <= Math.pow(9.999999999999999, 99) && calcVals['ans'] >= Math.pow(-9.999999999999999, 99)) {
+        if (calcVals['ans'] > 999999999 || calcVals['ans'] < -999999999/*|| calcVals['ans'].length > 9*/) {
+            calculatorScreen.textContent = Number(calcVals['ans']).toExponential(4).toString();
+            // textContent uses 5 to fit number on screen
+            calcVals['ans'] = Number(calcVals['ans']).toExponential(15).toString();
+            calcVals['a'] = Number(calcVals['ans']).toExponential(15).toString();
+            // these use 15 due to js limitations on accuracy past 15 digits
+        }
+        else if (calcVals['ans'].length > 9) {
+            calculatorScreen.textContent = Number(calcVals['ans']).toPrecision(9);
+            calcVals['ans'] = Number(calcVals['ans']).toPrecision(15).toString();
+            calcVals['a'] = Number(calcVals['ans']).toPrecision(15).toString();
         }
         else {
+            // calcVals['a'] = calcVals['ans'];
+            // checkL
             calculatorScreen.textContent = calcVals['ans'];
             calcVals['a'] = calcVals['ans'];
         }
