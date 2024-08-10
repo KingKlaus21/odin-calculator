@@ -390,18 +390,26 @@ function useEquals() {
         console.log('useEquals no values ran');
         return;
     }
+
     console.log(calcVals['ans']);
 
-    if (calcVals['ans'] > 999999999 || calcVals['ans'].length > 9) {
-
-        calculatorScreen.textContent = Number(calcVals['ans']).toExponential(5).toString();
-        calcVals['ans'] = Number(calcVals['ans']).toExponential().toString();
-        calcVals['a'] = Number(calcVals['ans']).toExponential().toString();
+    if (calcVals['ans'] != 'NaN') {
+        if (calcVals['ans'] > 999999999 || calcVals['ans'].length > 9) {
+            calculatorScreen.textContent = Number(calcVals['ans']).toExponential(5).toString();
+            calcVals['ans'] = Number(calcVals['ans']).toExponential().toString();
+            calcVals['a'] = Number(calcVals['ans']).toExponential().toString();
+        }
+        else {
+            calculatorScreen.textContent = calcVals['ans'];
+            calcVals['a'] = calcVals['ans'];
+        }
     }
     else {
-        calculatorScreen.textContent = calcVals['ans'];
-        calcVals['a'] = calcVals['ans'];
+        useClear();
+        calculatorScreen.textContent = 'Error';
     }
+
+    
 
     // calculatorScreen.textContent = calcVals['ans'];
     // calcVals['a'] = calcVals['ans'];
