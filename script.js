@@ -65,18 +65,26 @@ console.table(calcVals); // get rid of this in end
 
 
 function checkLength() {
+    console.log('checkLength ran');
     return Object
         .keys(calcVals)
         .slice(0, 2)
         .map((key) => {
             if (typeof calcVals[key] == 'string' /*&& !calcVals[key].includes('e+')*/) {
                 if (calcVals[key].length >= 11 && calcVals[key].includes('-') && calcVals[key].includes('.')) {
+                    console.log('checkLength yes - yes . ran');
                     calcVals[key] = calcVals[key].slice(0,11);
                 }
                 else if (calcVals[key].length >= 10 && calcVals[key].includes('-')) {
+                    console.log('checkLength yes - no . ran');
+                    calcVals[key] = calcVals[key].slice(0,10);
+                }
+                else if (calcVals[key].length >= 10 && calcVals[key].includes('.')) {
+                    console.log('checkLength no - yes . ran');
                     calcVals[key] = calcVals[key].slice(0,10);
                 }
                 else {
+                    console.log('checkLength no - no . ran');
                     calcVals[key] = calcVals[key].slice(0,9);
                 }
             }
@@ -245,6 +253,7 @@ function useDecimal() {
             else if (typeof calcVals['a'] != 'string' || calcVals['a'].includes('e+')) {
                 calcVals['a'] = "0.";
             }
+            checkLength(); // needed?
             calcVals.prevType = "A";
             calculatorScreen.textContent = calcVals.a;
             console.table(calcVals);
