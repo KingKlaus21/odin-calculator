@@ -14,7 +14,16 @@ const calculatorButtonContainer = document.getElementById("calculatorButtonConta
 const calculatorScreen = document.getElementById("calculatorScreen");
 
 
-calculatorButtonContainer.addEventListener('click', (item) => {
+document.addEventListener('keydown', (event) => {
+    if (event.key == '5') {
+        console.log('you pressed 5');
+    }
+})
+
+calculatorButtonContainer.addEventListener('click', (item) => chooseBehavior(item));
+
+
+function chooseBehavior(item) {
     if (item.target !== calculatorButtonContainer) {
 
         // console.log('Clicked:', item.target.textContent);
@@ -58,7 +67,7 @@ calculatorButtonContainer.addEventListener('click', (item) => {
             }
         }
     }
-});
+}
 
 
 console.table(calcVals); // get rid of this in end
