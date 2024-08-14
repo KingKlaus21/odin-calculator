@@ -205,3 +205,22 @@ li {
 }
 
 
+.number,
+.whiteButton {
+    background-color: white;
+    color:darkblue;
+}
+
+.operator,
+.redButton {
+    background-color: rgb(204, 25, 25);
+    color: white;
+}
+
+.number,
+.whiteButton,
+.operator,
+.redButton {
+    border-radius: 6px;
+}
+
