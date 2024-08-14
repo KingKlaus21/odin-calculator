@@ -16,25 +16,34 @@ body, html {
 #calculatorBody {
     /* width: 69%;
     height: 60%; */
-    width: 430px;
-    height: 540px;
-    background-color: black;
-    padding: 12px;
+    width: 420px;
+    height: 640px;
+    background-color: rgb(42, 14, 145);
+    padding: 24px 20px 50px 20px;
     display: flex;
     flex-direction: column;
+    border-width: 4px;
+    border-style: solid;
+    border-color: black;
 
-    border-radius: 13px;
+    border-radius: 10px 10px 40px 40px;
 }
 
 #calculatorScreen {
-    font-size: 80px;
+    font-size: 70px;
     font-family: 'digital-7';
+    /* letter-spacing: 1px; */
     display: flex;
     /* flex-grow: 2; */
-    background-color: aliceblue;
+    /* background-color: aliceblue; */
+    background-color:rgb(159, 194, 194);
     justify-content: flex-end;
     /* align-items: center; */
-    margin-bottom: 10px;
+
+    /* margin-bottom: 10px; */
+    margin: 10px 25px 0px 25px;
+
+    padding: 0px 10px;
 
     border-radius: 6px;
 
@@ -67,4 +76,38 @@ body, html {
 
 #commandInfo {
     margin-top: 30px;
+}
+
+#companyAndSolar {
+    font-size: 30px;
+    font-weight: 100;
+    font-family: 'Trebuchet MS', 'Lucida Sans Unicode', 'Lucida Grande', 'Lucida Sans', Arial, sans-serif;
+    /* font-family:system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif; */
+    color: rgb(190, 190, 190);
+    display: flex;
+    flex-direction: column;
+    margin: 0px;
+}
+
+p {
+    margin: 10px 0px 0px 0px;
+}
+
+#companyName {
+    letter-spacing: -3px;
+}
+
+#modelName {
+    color: white;;
+    font-size: 50px;
+    font-weight: 1000;
+    font-family:Cambria, Cochin, Georgia, Times, 'Times New Roman', serif;
+    display: flex;
+    flex-direction:row;
+    margin-top: 2px;
+}
+
+#extraInfo {
+    display: flex;
+    justify-content: space-between;
 }
