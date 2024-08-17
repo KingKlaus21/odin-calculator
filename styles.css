@@ -24,7 +24,8 @@ body, html {
     height: 660px;
     background-color: rgb(9, 84, 151); 
     /* color from color picker */
-    padding: 24px 20px 70px 20px;
+    /* padding: 24px 20px 70px 20px; */
+    /* EXTREMELY IMPORTANT PADDING */
     display: flex;
     flex-direction: column;
     border-width: 4px;
@@ -36,20 +37,42 @@ body, html {
     box-shadow: -3px 3px 10px 10px rgb(124, 124, 124);
 }
 
+#boxAroundScreen {
+    /* list-style: none; */
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.boxBumps {
+    margin: 0px;
+    padding: 0px;
+    height: 76px;
+    width: 40px;
+    flex-shrink: 0;
+    border-radius: 5px;
+
+}
+
 #calculatorScreen {
     height: 50px;
+    width: 323.6px;
+    /* EXTREMELY IMPORTANT WIDTH */
     font-size: 70px;
     font-family: 'digital-7-italic';
-    /* letter-spacing: 1px; */
+    
     display: flex;
-    /* flex-grow: 2; */
-    /* background-color: aliceblue; */
+    flex-shrink: 0;
+    
     background-color:rgb(159, 194, 194);
     justify-content: flex-end;
-    /* align-items: center; */
+    
+    /* margin: 8px 25px 14px 25px; */
+    /* EXTREMELY IMPORTANT MARGIN */
 
-    /* margin-bottom: 10px; */
-    margin: 8px 25px 14px 25px;
+    margin: 12px;
+    /* Left and right so boxes stay away and leave 
+    room for shadow */
 
     padding: 1px 6px 1px 6px;
 
@@ -227,7 +250,7 @@ li {
 
 .operator,
 .redButton {
-    background-color: rgb(230, 27, 27);
+    background-color: rgb(230, 22, 22);
     color: white;
 
     border-color: rgb(77, 1, 1);
