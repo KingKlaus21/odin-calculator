@@ -279,16 +279,44 @@ li {
     /* border-style: solid; */
 }
 
-.bump {
+.bumpContainer {
     display: flex;
     flex: auto;
+
     margin-left: -7px;
     margin-top: -4px;
+    margin-bottom: 1px;
+    margin-right: 1px;
     /* counteracts padding on buttons */
+
+    border-radius: 4px;
+
 
 }
 
+.operator .bumpContainer,
+.redButton .bumpContainer {
+    /* red */
+    background-image: url(./images/RedPixelBump.png);
+    background-size: 6px 5px;
+    background-repeat: repeat;
+}
+
+.number .bumpContainer,
+.whiteButton .bumpContainer {
+    /* white */
+    background-image: url(./images/WhitePixelBump.png);
+    background-size: 6px 5px;
+    background-repeat: repeat;
+}
+
+/* MODIFY boxBumps */
+
+
+
+
 p {
-    margin: 10px 0px 0px 0px;
+    /* margin: 10px 0px 0px 0px; */
+    margin: 0px;
     /* margin: 0px 0px 0px 7px; */
 }
