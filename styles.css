@@ -55,6 +55,9 @@ body, html {
 
     background-color: rgb(9, 84, 151); 
 
+    background-image: url(./images/BluePixelBump.png);
+    background-size: 8px 5px;
+    background-repeat: repeat;
 }
 
 #calculatorScreen {
@@ -73,7 +76,8 @@ body, html {
     /* margin: 8px 25px 14px 25px; */
     /* EXTREMELY IMPORTANT MARGIN */
 
-    margin: 12px;
+    /* margin: 12px; */
+    margin: 5px;
     /* Left and right so boxes stay away and leave 
     room for shadow */
 
@@ -89,6 +93,8 @@ body, html {
     line-height: 0.75;
 
     letter-spacing: -2.7px;
+
+    box-shadow: inset 10px;
 
 }
 
@@ -121,10 +127,10 @@ body, html {
 
     flex-wrap: wrap;
     
-    width: 251px;
+    width: 255px;
     height: 400px;
 
-    gap: 14.8px 12px;
+    gap: 11px 12px;
 }
 
 .normalButtons>*{
