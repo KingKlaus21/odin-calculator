@@ -2,6 +2,7 @@
     font-family: 'digital-7-italic';
     src: url(./fonts/digital-7\ \(mono\ italic\).ttf);
 }
+
 @font-face {
     font-family: 'public-sans';
     src: url(./fonts/PublicSans-VariableFont_wght.ttf);
@@ -10,6 +11,11 @@
 @font-face {
     font-family: 'rokitt';
     src: url(./fonts/Rokkitt-VariableFont_wght.ttf);
+}
+
+@font-face {
+    font-family: 'red-hat';
+    src: url(./fonts/RedHatDisplay-VariableFont_wght.ttf);
 }
 
 
@@ -46,7 +52,7 @@ body, html {
 
     border-radius: 10px 10px 30px 30px;
 
-    box-shadow: -3px 3px 10px 10px rgb(124, 124, 124);
+    box-shadow: -6px 6px 6px 6px rgb(124, 124, 124);
 }
 
 .boxBumps {
@@ -186,7 +192,7 @@ body, html {
 }
 
 .normalButtons>*{
-    font-size: 26px;
+    font-size: 22px;
     display: flex;
     /* justify-content: center;
     align-items: center; */
@@ -198,7 +204,7 @@ body, html {
     /* margin-right: 10px; */
 
     /* width: 64px; */
-    width: 64px;
+    width: 68px;
     height: 50px;
 }
 
@@ -216,7 +222,9 @@ body, html {
 }
 
 .operatorButtons>*{
-    font-size: 26px;
+    font-size: 28px;
+    /* line-height: .9; */
+    line-height: 1.05;
     display: flex;
     /* justify-content: center;
     align-items: center; */
@@ -227,7 +235,7 @@ body, html {
 
     /* flex-shrink: 0 0 0; */
 
-    width: 64px;
+    width: 68px;
     height: 50px;
 }
 
@@ -280,7 +288,6 @@ ul {
     font-family: 'public-sans';
     font-weight: 200;
     font-size: 30px;
-    font-stretch: expanded;
     margin-top: 5px;
 }
 
@@ -335,12 +342,16 @@ ul {
 .operator,
 .redButton {
     border-radius: 8px;
-    padding-left: 7px;
 
-    box-shadow: -3px 3px 10px 4px rgb(59, 59, 59);
+    padding-left: 3px;
+    /* padding-left: 7px; */
+
+    box-shadow: -1px 1px 2px 2px rgb(59, 59, 59);
 
     flex-direction: column;
 
+    font-family: 'red-hat';
+    font-weight: 500;
     
 
     
@@ -351,13 +362,16 @@ ul {
     display: flex;
     flex: auto;
 
-    margin-left: -7px;
+    margin-left: -3px;
     margin-top: -4px;
     margin-bottom: 1px;
     margin-right: 1px;
     /* counteracts padding on buttons */
 
     border-radius: 4px;
+
+    background-size: 6px 5px;
+    background-repeat: repeat;
 
 
 }
@@ -366,22 +380,13 @@ ul {
 .redButton .bumpContainer {
     /* red */
     background-image: url(./images/RedPixelBump.png);
-    background-size: 6px 5px;
-    background-repeat: repeat;
 }
 
 .number .bumpContainer,
 .whiteButton .bumpContainer {
     /* white */
     background-image: url(./images/WhitePixelBump.png);
-    background-size: 6px 5px;
-    background-repeat: repeat;
 }
-
-/* MODIFY boxBumps */
-
-
-
 
 p {
     /* margin: 10px 0px 0px 0px; */
@@ -396,5 +401,13 @@ p {
     margin-left: 14px;
     margin-top: 2px;
     margin-bottom: 2px;
+}
 
+span {
+    margin-top: -5px;
+}
+
+#n {
+    /* special rule for +/- appearance */
+    letter-spacing: -1.9px;
 }
