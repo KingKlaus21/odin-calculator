@@ -452,9 +452,13 @@ function useEquals() {
         console.log('useEquals all vals ran');
         calcVals['ans'] = operate(calcVals['a'], calcVals['b'], calcVals['op']);
     }
-    else if (typeof calcVals['a'] == 'string' && typeof calcVals['b'] != 'string' && typeof calcVals['op'] == 'string') {
-        console.log('useEquals no b ran');
+    else if (typeof calcVals['a'] == 'string' && typeof calcVals['b'] != 'string' && typeof calcVals['op'] == 'string' && calcVals['op'] != '^' && calcVals['op'] != 's') {
+        console.log('useEquals no b and not ^ or s ran');
         calcVals['ans'] = operate(calcVals['a'], calcVals['a'], calcVals['op']);
+    }
+    else if (typeof calcVals['a'] == 'string' && typeof calcVals['b'] != 'string' && typeof calcVals['op'] == 'string' && calcVals['op'] == '^' || calcVals['op'] == 's') {
+        console.log('useEquals no b and either ^ or s ran');
+        calcVals['ans'] = operate(calcVals['a'], 2, calcVals['op']);
     }
     else if (typeof calcVals['a'] == 'string' && typeof calcVals['b'] != 'string' && typeof calcVals['op'] != 'string') {
         console.log('useEquals only a ran');
@@ -562,6 +566,25 @@ function operate(a,b,op) {
 
 function useAns() {
     console.log('useAns ran');
+    if (typeof calcVals.ans != "string") {
+        console.log('useAns no ans ran');
+    }
+    else {
+        if (calcVals.prevType == "A") {
+            console.log('useAns fresh equals or A reassignment and NOT ^ or s ran');
+            calcVals.a = calcVals.ans;
+            calcVals.prevType = "A";
+            calculatorScreen.textContent = calcVals.ans;
+        }
+        else if (calcVals.prevType == "OP" || calcVals.prevType == "B") {
+            console.log('useAns previous operator or B reassignment ran');
+            calcVals.a = calcVals.ans;
+            calcVals.b = calcVals.ans;
+            calcVals.prevType = "B";
+            calculatorScreen.textContent = calcVals.ans;
+        }
+    }
+    console.table(calcVals);
 }
 
 
