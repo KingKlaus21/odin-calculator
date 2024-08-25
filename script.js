@@ -225,6 +225,7 @@ function useNumber(val) {
 //     }
 // }
 
+
 function useOperator(val) {
     if (calcVals.prevType == null) {
         calcVals.a = '0';
@@ -243,8 +244,6 @@ function useOperator(val) {
             break;
     }
 }
-
-
 
 
 function useClear() {
@@ -549,6 +548,14 @@ function operate(a,b,op) {
             return (a / b).toString();
         case("%"):
             return (b / (100 / a)).toString();
+        case("s"):
+            return (a ** (1 / b)).toString();
+        // make b a 2 since most will want squared if no b provided
+        // MUST SHOW ERROR IF x IS NEGATIVE
+        case("^"):
+            return (a ** b).toString();
+        // make b a 2 since most will want squared if no b provided
+        // CHECK LOGIC FOR x^y for negative x
     }
 }
 
