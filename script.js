@@ -19,12 +19,13 @@ commandInfo.addEventListener('click', () =>
     alert(
         'Button                     Key' + '\n' + 
         '--------------------------------' + '\n' +
-        'CLEAR:                        c' + '\n' + 
+        'ON/C:                         c' + '\n' + 
         'DELETE:             backspace' + '\n' + 
         '(   +/-   ):                      n' + '\n' + 
         '(    =    ):                   enter' + '\n' + 
-        '(+-/*%):                    self' + '\n' + 
-        '(   0-9   ):                   self'
+        '(   x^y   ):                    ^' + '\n' +
+        '(   sqrt  ):                    s' + '\n' +
+        '(+-/*% 0-9):             self'
         )
     );
 
@@ -38,7 +39,7 @@ function chooseCommand(itemId) {
     console.log(`itemId = ${itemId}`);
     console.log(`itemId type = ${typeof itemId}`);
 
-    const checkOperator = ['%', '/', '*', '+', '-'].includes(itemId);
+    const checkOperator = ['%', '/', '*', '+', '-', '^', 's'].includes(itemId);
 
     if (itemId >= 0 && itemId < 10 && itemId != ' ') {
         console.log('chooseCommand number used');
@@ -65,6 +66,9 @@ function chooseCommand(itemId) {
                 break;
             case("Enter"):
                 useEquals();
+                break;
+            case("a"):
+                useAns();
                 break;
             default:
                 break;
@@ -196,27 +200,51 @@ function useNumber(val) {
 }
 
 
+// function useOperator(val) {
+//     // null checks if operator has never been clicked before
+//     switch(calcVals.prevType) {
+//         case(null):
+//             console.log(val);
+//             console.log("null useOperator ran");
+//             // if (typeof calcVals['a'] != 'string') {
+//             //     calcVals.a = '0';
+//             // }
+//             calcVals.a = '0';
+//             calcVals.op = val;
+//             calcVals.prevType = "OP";
+//             calculatorScreen.textContent = calcVals.op;
+//             console.table(calcVals);
+//             break;
+//         default:
+//             console.log("default useOperator ran");
+//             calcVals.op = val;
+//             calcVals.prevType = "OP";
+//             calculatorScreen.textContent = calcVals.op;
+//             console.table(calcVals);
+//             break;
+//     }
+// }
+
 function useOperator(val) {
-    switch(calcVals.prevType){
-        case(null):
-            console.log("null useOperator ran");
-            if (typeof calcVals['a'] != 'string') {
-                calcVals.a = '0';
-            }
-            calcVals.op = val;
-            calcVals.prevType = "OP";
-            calculatorScreen.textContent = calcVals.op;
-            console.table(calcVals);
+    if (calcVals.prevType == null) {
+        calcVals.a = '0';
+    }
+    calcVals.op = val;
+    calcVals.prevType = 'OP';
+    console.table(calcVals);
+    switch(val) {
+        case('s'):
+            console.log('useOperator sqrt ran');
+            calculatorScreen.textContent = 'sqrt';
             break;
         default:
-            console.log("default useOperator ran");
-            calcVals.op = val;
-            calcVals.prevType = "OP";
+            console.log('useOperator default ran');
             calculatorScreen.textContent = calcVals.op;
-            console.table(calcVals);
             break;
     }
 }
+
+
 
 
 function useClear() {
@@ -443,83 +471,23 @@ function useEquals() {
     
     if (calcVals['ans'] != 'NaN' && calcVals['ans'] > 0) {
         if (calcVals['ans'] <= 999999999 && calcVals['ans'] >= 0.00000001) {
-            // normal for positive numbers
-            // checkLength();
-
-            // calcVals['a'] = calcVals['ans'];
-
-            // if (calcVals['ans'].length > 9) {
-            //     calcVals['ans'] = Number(calcVals['ans']).toFixed(15).toString();
-            //     calcVals['a'] = Number(calcVals['ans']).toFixed(15).toString();
-            //     calculatorScreen.textContent = Number(calcVals['ans']).toFixed(8);
-            // }
-            // else {
-            //     calcVals['a'] = calcVals['ans'];
-            //     calculatorScreen.textContent = calcVals['ans'];
-            // }
 
             checkAnsLength();
             calculatorScreen.textContent = calcVals['ans'];
             calcVals['a'] = calcVals['ans'];
 
-
-
-
-
-
-
-
-            // calculatorScreen.textContent = Number(calcVals['ans']).toPrecision(9);
-
-            // if (calcVals['a'].length >= 9) {
-            //     calculatorScreen.textContent = Number(calcVals['a']).toPrecision(1);
-            //     console.log(`if toPrecision: ${Number(calcVals['a']).toPrecision(1)}`);
-            //     console.log(`if length: ${calcVals['a'].length}`);
-            // }
-            // else {
-            //     calculatorScreen.textContent = calcVals['ans'];
-            //     console.log(`else length: ${calcVals['a'].length}`);
-            // }
-
-            // calculatorScreen.textContent = calcVals['ans'].length >= 8
-            //     ? calcVals['ans'].slice(0, 8) + Math.round(Number(calcVals['ans'].slice(8, 9) + '.' + calcVals['ans'].slice(9, 10)))
-            //     : calcVals['ans'];
-
-            // if (calcVals['ans'].length >= 8 && !calcVals['ans'].includes('e-') && !calcVals['ans'].includes('e+') && !calcVals['ans'].includes('NaN')) {
-            //     console.log('fucking code if ran');
-            //     calculatorScreen.textContent = calcVals['ans'].slice(0, 8) + Math.round(Number(calcVals['ans'].slice(8, 9) + '.' + calcVals['ans'].slice(9, 10)));
-            //     console.log(Math.round(Number(calcVals['ans'].slice(8, 9) + '.' + calcVals['ans'].slice(9, 10))));
-            //     console.log(calcVals['ans'].slice(8, 9));
-            //     console.log(calcVals['ans'].slice(9, 10));
-            // }
-            // else {
-            //     console.log('fucking code else ran');
-            //     calculatorScreen.textContent = calcVals['ans'];
-            // }
-
-            
-
-                // USE FOR NEGATIVES // calcVals['ans'].slice(0, 10) + Math.round(Number(calcVals['ans'].slice(10, 11) + '.' + calcVals['ans'].slice(11, 12)))
-
-
-
-            // calculatorScreen.textContent = calcVals['ans'];
-            // calcVals['a'] = calcVals['ans'];
             console.log('range 8 works');
         }
         else if ((calcVals['ans'] >= Math.pow(9.999999999999999, -99) && calcVals['ans'] < 0.00000001) 
                 || (calcVals['ans'] <= Math.pow(9.999999999999999, 99) && calcVals['ans'] > 999999999)) {
-            // sci notation for this range
-            // checkLength();
+            
             calcVals['ans'] = Number(calcVals['ans']).toExponential(15).toString();
             calcVals['a'] = Number(calcVals['ans']).toExponential(15).toString();
             calculatorScreen.textContent = Number(calcVals['ans']).toExponential(4).toString();
-            // calcVals['ans'] = Number(calcVals['ans']).toExponential(15).toString();
-            // calcVals['a'] = Number(calcVals['ans']).toExponential(15).toString();
+            
             console.log('range 7 or 9 works');
         }
         else {
-            // send error message
             useClear();
             calculatorScreen.textContent = 'Error';
             console.log('range 6 or 10 works');
@@ -527,59 +495,36 @@ function useEquals() {
     }
     else if (calcVals['ans'] != 'NaN' && calcVals['ans'] < 0) {
         if (calcVals['ans'] >= -999999999 && calcVals['ans'] <= -0.00000001) {
-            // normal for negative numbers
-            // checkLength();
-            // if (calcVals['ans'].length > 9) {
-            //     calcVals['ans'] = Number(calcVals['ans']).toFixed(15).toString();
-            //     calcVals['a'] = Number(calcVals['ans']).toFixed(15).toString();
-            //     calculatorScreen.textContent = Number(calcVals['ans']).slice(0,9);
-            // }
-            // else {
-            //     calcVals['a'] = calcVals['ans'];
-            //     calculatorScreen.textContent = calcVals['ans'];
-            // }
+            
             
             checkAnsLength();
             calculatorScreen.textContent = calcVals['ans'];
             calcVals['a'] = calcVals['ans'];
 
-            // calcVals['a'] = calcVals['ans'];
-
-            // calculatorScreen.textContent = calcVals['ans'].length >= 9 
-            //     ? Number(calcVals['ans']).toPrecision(9)
-            //     : calcVals['ans'];
-
-            // // calculatorScreen.textContent = calcVals['ans'];
-            // //calcVals['a'] = calcVals['ans'];
+            
             console.log('range 3 works');
         }
         else if ((calcVals['ans'] <= Math.pow(-9.999999999999999, -99) && calcVals['ans'] > -0.00000001) 
                 || (calcVals['ans'] >= Math.pow(-9.999999999999999, 99) && calcVals['ans'] < -999999999)) {
-            // sci notation for this range
-            // checkLength();
+           
             calcVals['ans'] = Number(calcVals['ans']).toExponential(15).toString();
             calcVals['a'] = Number(calcVals['ans']).toExponential(15).toString();
             calculatorScreen.textContent = Number(calcVals['ans']).toExponential(4).toString();
-            // calcVals['ans'] = Number(calcVals['ans']).toExponential(15).toString();
-            // calcVals['a'] = Number(calcVals['ans']).toExponential(15).toString();
+            
             console.log('range 2 or 4 works');
         }
         else {
-            // send error message
             useClear();
             calculatorScreen.textContent = 'Error';
             console.log('range 1 or 5 works');
         }
     }
     else if (calcVals['ans'] != 'NaN' && calcVals['ans'] == 0) {
-        // normal for zero
         calcVals['a'] = calcVals['ans'];
         calculatorScreen.textContent = calcVals['ans'];
-        // calcVals['a'] = calcVals['ans'];
         console.log('0 works');
     }
     else {
-        // error message for NaN
         useClear();
         calculatorScreen.textContent = 'Error';
         console.log('NaN works');
@@ -587,69 +532,6 @@ function useEquals() {
 
     calcVals['prevType'] = null;
     console.table(calcVals);
-    
-
-
-
-    // if (calcVals['ans'] != 'NaN' && calcVals['ans'] <= Math.pow(9.999999999999999, 99) && calcVals['ans'] >= Math.pow(-9.999999999999999, 99)) {
-    //     console.log('main if ran');
-    //     if (calcVals['ans'] )
-
-
-    //     if (calcVals['ans'] > 999999999 || calcVals['ans'] < -999999999/*|| calcVals['ans'].length > 9*/) {
-    //         calculatorScreen.textContent = Number(calcVals['ans']).toExponential(4).toString();
-    //         // textContent uses 5 to fit number on screen
-    //         calcVals['ans'] = Number(calcVals['ans']).toExponential(15).toString();
-    //         calcVals['a'] = Number(calcVals['ans']).toExponential(15).toString();
-    //         // these use 15 due to js limitations on accuracy past 15 digits
-    //     }
-    //     else if (calcVals['ans'].length > 9) {
-    //         calculatorScreen.textContent = Number(calcVals['ans']).toPrecision(9);
-    //         calcVals['ans'] = Number(calcVals['ans']).toPrecision(15).toString();
-    //         calcVals['a'] = Number(calcVals['ans']).toPrecision(15).toString();
-    //     }
-    //     else {
-    //         // calcVals['a'] = calcVals['ans'];
-    //         // checkL
-    //         calculatorScreen.textContent = calcVals['ans'];
-    //         calcVals['a'] = calcVals['ans'];
-    //     }
-    // }
-
-    // else if (calcVals['ans'] != 'NaN' && calcVals['ans'] <= Math.pow(-9.999999999999999, -99) && calcVals['ans'] >= Math.pow(9.999999999999999, -99)) {
-    //     if (calcVals['ans'] < 0.00000001 || calcVals['ans'] > -0.00000001) {
-    //         calculatorScreen.textContent = Number(calcVals['ans']).toExponential(4).toString();
-    //         // textContent uses 5 to fit number on screen
-    //         calcVals['ans'] = Number(calcVals['ans']).toExponential(15).toString();
-    //         calcVals['a'] = Number(calcVals['ans']).toExponential(15).toString();
-    //         // these use 15 due to js limitations on accuracy past 15 digits
-    //     }
-    //     // else if (calcVals['ans'] > -1 && calcVals['ans'] < -0.00000001) {
-    //     //     calculatorScreen.textContent = Number(calcVals['ans']).toExponential(4).toString();
-    //     //     // textContent uses 5 to fit number on screen
-    //     //     calcVals['ans'] = Number(calcVals['ans']).toExponential(15).toString();
-    //     //     calcVals['a'] = Number(calcVals['ans']).toExponential(15).toString();
-    //     //     // these use 15 due to js limitations on accuracy past 15 digits
-    //     // }
-    //     else if (calcVals['ans'].length > 9) { // SWITCH TO 10???
-    //         calculatorScreen.textContent = Number(calcVals['ans']).toPrecision(9);
-    //         calcVals['ans'] = Number(calcVals['ans']).toPrecision(15).toString();
-    //         calcVals['a'] = Number(calcVals['ans']).toPrecision(15).toString();
-    //     }
-    //     else {
-    //         calculatorScreen.textContent = calcVals['ans'];
-    //         calcVals['a'] = calcVals['ans'];
-    //     }
-    // }
-    // else {
-    //     useClear();
-    //     calculatorScreen.textContent = 'Error';
-    // }
-
-    
-
-    // calculatorScreen.textContent = calcVals['ans'];
-    // calcVals['a'] = calcVals['ans'];
 }
 
 
@@ -668,9 +550,11 @@ function operate(a,b,op) {
         case("%"):
             return (b / (100 / a)).toString();
     }
-    // return (finalVal > 999999999 || finalVal.length > 9 
-    //             ? finalVal.toExponential(5).toString() 
-    //             : finalVal.toString());
+}
+
+
+function useAns() {
+    console.log('useAns ran');
 }
 
 
