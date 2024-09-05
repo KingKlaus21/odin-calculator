@@ -402,7 +402,7 @@ function usePosNeg() {
             }
             else if (typeof calcVals['a'] == 'string' && calcVals['a'].length >= 10) {
                 calcVals['a'] = (calcVals['a'] * -1).toString();
-                calculatorScreen.textContent = Number(calcVals['a']).toPrecision(9);
+                calculatorScreen.textContent = Number(calcVals['a'].slice(0, 11));
             }
             else {
                 calcVals.a = "-0";
@@ -471,8 +471,12 @@ function useEquals() {
         console.log('useEquals no values ran');
         return;
     }
-
+    checkEquals();
     console.log(calcVals['ans']);
+}
+
+function checkEquals() {
+    console.log('checkEquals ran');
 
     
     if (calcVals['ans'] != 'NaN' && calcVals['ans'] > 0) {
