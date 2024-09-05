@@ -109,6 +109,7 @@ function checkLength() {
 
 function checkAnsLength() {
     console.log('checkAnsLength ran');
+    // DOES NOT WORK NICELY WITH SCI NOTATION SO FIX IT
     if (typeof calcVals['ans'] == 'string') {
         if (calcVals['ans'].includes('-') && calcVals['ans'].includes('.')) {
             console.log('checkLength yes - yes . ran');
@@ -566,6 +567,7 @@ function operate(a,b,op) {
 
 function useAns() {
     console.log('useAns ran');
+    // fix bug where using ANS when too long causes it to go off screen
     if (typeof calcVals.ans != "string") {
         console.log('useAns no ans ran');
     }
@@ -574,18 +576,22 @@ function useAns() {
             console.log('useAns fresh equals or A reassignment and NOT ^ or s ran');
             calcVals.a = calcVals.ans;
             calcVals.prevType = "A";
-            calculatorScreen.textContent = calcVals.ans;
         }
         else if (calcVals.prevType == "OP" || calcVals.prevType == "B") {
             console.log('useAns previous operator or B reassignment ran');
             calcVals.a = calcVals.ans;
             calcVals.b = calcVals.ans;
             calcVals.prevType = "B";
-            calculatorScreen.textContent = calcVals.ans;
+            // calculatorScreen.textContent = calcVals.ans;
         }
+        checkAnsLength();
+        calculatorScreen.textContent = calcVals.ans;
     }
     console.table(calcVals);
 }
 
+    // checkAnsLength();
+    // calculatorScreen.textContent = calcVals['ans'];
+    // calcVals['a'] = calcVals['ans'];
 
 
