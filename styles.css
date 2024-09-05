@@ -199,7 +199,7 @@ body, html {
     /* width: 20px;
     height: 20px; */
     /* margin: 10px; */
-    background: purple;
+    /* background: purple; */
 
     /* margin-right: 10px; */
 
@@ -231,7 +231,7 @@ body, html {
     /* width: 20px;
     height: 20px; */
     /* margin: 10px; */
-    background: purple;
+    /* background: purple; */
 
     /* flex-shrink: 0 0 0; */
 
@@ -346,7 +346,7 @@ ul {
     padding-left: 3px;
     /* padding-left: 7px; */
 
-    box-shadow: -1px 1px 2px 2px rgb(59, 59, 59);
+    box-shadow: -2px 2px 2px 1px rgb(59, 59, 59);
 
     flex-direction: column;
 
@@ -410,4 +410,21 @@ span {
 #n {
     /* special rule for +/- appearance */
     letter-spacing: -1.9px;
+}
+
+
+.redButton:active,
+.whiteButton:active,
+.number:active,
+.operator:active {
+    border-style: inset;
+    box-shadow: 0px 0px 4px rgb(17, 17, 17) inset;
+    font-size: 21px;
+    border-color: rgb(0,0,0);
+    /* font-size: 65px;
+    text-align: center; */
+}
+
+.operator:active {
+    font-size: 27px;
 }
