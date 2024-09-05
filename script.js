@@ -70,7 +70,9 @@ function chooseCommand(itemId) {
             case("a"):
                 useAns();
                 break;
+            // case("Shift"):
             default:
+                console.log('chooseCommand break ran');
                 break;
         }
     }
@@ -228,7 +230,7 @@ function useNumber(val) {
 
 
 function useOperator(val) {
-    if (calcVals.prevType == null) {
+    if (calcVals.prevType == null && calcVals.a != calcVals.ans) {
         calcVals.a = '0';
     }
     calcVals.op = val;
@@ -533,6 +535,7 @@ function useEquals() {
         calculatorScreen.textContent = 'Error';
         console.log('NaN works');
     }
+
 
     calcVals['prevType'] = null;
     console.table(calcVals);
